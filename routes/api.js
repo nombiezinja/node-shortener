@@ -12,6 +12,7 @@ module.exports = (Url_items) => {
     .not().isEmpty()
     .isURL()
   ], async (req, res) => {
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.status(422).json({
@@ -39,10 +40,18 @@ module.exports = (Url_items) => {
     }
   });
 
-  router.get('/:unique_code', (req, res) => {
+  router.get('/:unique_code', [
+    check('unique_code')
+    .not().isEmpty()
+    .isString()
+  ], async(req, res) => {
     //sanitize code
     //check if code valid
-
+    if (!errors.isEmpty()) {
+      res.status(422).json({
+        errors: errors.array()
+      });
+    };
     res.send("it a unique_code")
   });
 
