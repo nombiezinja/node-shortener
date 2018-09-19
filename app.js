@@ -8,8 +8,10 @@ const express = require('express');
 const app = express();
 const ENV = app.get('env');
 const bodyParser = require('body-parser');
+
 const http = require('http');
 const server = http.createServer(app);
+
 
 const knexConfig = require('./knexfile');
 const knex = require('knex')(knexConfig[ENV]);
@@ -25,8 +27,10 @@ const api_routes = require('./routes/api');
 app.use(morgan('dev'));
 app.use(knexLogger(knex));
 
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); 
+
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send("its alive")
