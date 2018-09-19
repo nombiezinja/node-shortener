@@ -44,14 +44,17 @@ module.exports = (Url_items) => {
     check('unique_code')
     .not().isEmpty()
     .isString()
+    .escape()
   ], async(req, res) => {
-    //sanitize code
-    //check if code valid
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.status(422).json({
         errors: errors.array()
       });
     };
+
+    console.log(req.params.unique_code)
+
     res.send("it a unique_code")
   });
 
@@ -59,11 +62,6 @@ module.exports = (Url_items) => {
     res.send("it a full unique_code")
   });
 
-
-  router.get('/', (req, res) => {
-    console.log("hello")
-    res.send("it a api")
-  });
 
   return router;
 };

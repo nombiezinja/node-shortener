@@ -14,6 +14,14 @@ module.exports = (knex) => {
         .where({
           original_url
         });
+    }, 
+
+    find_by_code: (unique_code) => {
+      return knex.select()
+        .from('url_items')
+        .where({
+          unique_code
+        });
     }
   }
 };
