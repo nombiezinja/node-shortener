@@ -14,8 +14,7 @@ module.exports = (Url_items) => {
     if (!duplicate[0] && valid_url) {
       const unique_code = shorten.random_string()
       const saved = await Url_items.save(unique_code, req.body.url_to_shorten)
-      console.log(saved)
-      res.send({
+      res.status(200).send({
         id: saved[0], 
         shortened_url: unique_code, 
         original_url: req.body.url_to_shorten
