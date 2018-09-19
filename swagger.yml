@@ -22,7 +22,7 @@ paths:
       - "application/json"
       parameters:
       - in: "body"
-        name: "long_url"
+        name: "url_to_shorten"
         description: "Long url that needs to be shortened"
         required: true
         schema:
@@ -31,7 +31,13 @@ paths:
         200:
           description: "Successful operation, url has been shortened"
           schema:
-            $ref: "#/definitions/shortened_url"
+            type: "object"
+            properties: 
+              id: 
+                type: "integer"
+                format: "int64"
+              shortened_url:
+                type: "string"
         400: 
           description: "Invalid long url input"
         405:
@@ -73,28 +79,29 @@ paths:
         200:
           description: "Successful retrieval of url object"
           schema:
-            $ref: '#/definitions/url_object'
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+                format: "int64"
+              shortened_url:
+                type: "string"
+              original_url:
+                type: "string"
         400: 
           description: "Invalid code for shortened url"
         405:
           description: "Invalid method"
 definitions:
-  shortened_url:
-    type: "object"
-    properties: 
-      id: 
-        type: "integer"
-        format: "int64"
-      url:
-        type: "string"
-  url_object:
+  url_item:
     type: "object"
     properties:
       id:
         type: "integer"
         format: "int64"
-      short_url:
+      original_url:
         type: "string"
-      long_url:
+      code:
         type: "string"
+
 

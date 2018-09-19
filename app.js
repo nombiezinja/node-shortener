@@ -7,13 +7,20 @@ const port = process.env.PORT || 8080;
 const express = require('express');
 const app = express();
 const ENV = app.get('env')
+
+const http = require('http');
+const server = http.createServer(app);
+
 const knexConfig = require('./knexfile');
 const knex = require('knex')(knexConfig[ENV]);
-const morgan = require('morgan');
-const http = require('http');
 const knexLogger = require('knex-logger');
 
-const server = http.createServer(app);
+const morgan = require('morgan');
+
+
+const Url_items = require('./models/Url_items')(knex);
+const api_routes = require('./routes/api');
+const params_middleware = require('./middlewares/params');
 
 
 const fs = require('fs');
@@ -23,10 +30,13 @@ app.use(morgan('dev'));
 
 app.use(knexLogger(knex));
 
-
-app.get('/test1', (req, res) => {
-  console.log("I'm aliveeeee")
+app.get('/', (req, res) => {
+  res.send("its alive")
 });
+
+
+
+// app.use('/api', api_routes(params_middleware,Url_items));
 
 
 server.listen(port, function listening() {
