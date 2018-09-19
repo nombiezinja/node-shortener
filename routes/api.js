@@ -1,23 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const shorten = require('../lib/shorten');
 
-
-module.exports = (params_middleware, Url_items) => {
+module.exports = (Url_items) => {
   
-  // router.post('/shorten',params_middleware, (req, res) => {
-  //   res.send("it a shorten")
-  // });
+  router.post('/shorten', (req, res) => {
+    console.log(shorten.random_string())
+    res.send("it a shorten")
+  });
 
-  // router.get('/:code',params_middleware, (req, res) => {
-  //   res.send("it a code")
-  // });
+  router.get('/:code', (req, res) => {
+    res.send("it a code")
+  });
 
-  // router.get('/urls/:code',params_middleware, (req, res) => {
-  //   res.send("it a code")
-  // });
+  router.get('/urls/:code', (req, res) => {
+    res.send("it a full code")
+  });
   
 
-  router.get('/', params_middleware, (req, res) => {
+  router.get('/', (req, res) => {
     console.log("hello")
     res.send("it a api")
   });

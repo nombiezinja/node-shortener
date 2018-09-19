@@ -3,7 +3,7 @@ require('dotenv').config({
 });
 
 // const ENV = process.env.NODE_ENV;
-const port = process.env.PORT || 8080;
+const port = process.env.PORT ;
 const express = require('express');
 const app = express();
 const ENV = app.get('env')
@@ -17,10 +17,9 @@ const knexLogger = require('knex-logger');
 
 const morgan = require('morgan');
 
-
 const Url_items = require('./models/Url_items')(knex);
 const api_routes = require('./routes/api');
-const params_middleware = require('./middlewares/params');
+// const params_middleware = require('./middlewares/params');
 
 
 const fs = require('fs');
@@ -34,10 +33,7 @@ app.get('/', (req, res) => {
   res.send("its alive")
 });
 
-
-
-// app.use('/api', api_routes(params_middleware,Url_items));
-
+app.use('/api', api_routes(Url_items));
 
 server.listen(port, function listening() {
   console.log('Listening on %d', server.address().port);

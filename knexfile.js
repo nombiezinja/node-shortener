@@ -7,7 +7,7 @@ module.exports = {
   test: {
     client: 'postgresql',
     connection: {
-      database: process.env.DB_TEST_NAME,
+      database: process.env.TEST_DB_NAME,
       port: process.env.DB_PORT,
       password: process.env.DB_PASSWORD,
       user: process.env.DB_USER,
@@ -37,7 +37,7 @@ module.exports = {
     }
   },
 
-  production: {
+  production: { 
     client: 'postgresql',
     connection: process.env.DATABASE_URL + '?ssl=true',
     pool: {

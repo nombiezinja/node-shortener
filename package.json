@@ -4,8 +4,9 @@
   "description": "An url-shortening app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "test": "mocha tests/**/**.spec.js",
+    "start": "node app.js",
+    "setup": "chmod +x setup.sh && ./setup.sh"
   },
   "author": "Ti Zhang",
   "license": "ISC",
