@@ -50,7 +50,7 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "code"
+      - name: "unique_code"
         in: "path"  
         description: "Code of the short url"
         required: true
@@ -59,18 +59,18 @@ paths:
         302:
           description: "Successful redirect"
         400: 
-          description: "Invalid code for shortened url"
+          description: "Invalid unique_code for shortened url"
         405:
           description: "Invalid method"
-  /urls/{code}:
+  /urls/{unique_code}:
     get: 
-      summary: "End point for retrieving shortened url, original long url, and row id by code"
+      summary: "End point for retrieving shortened url, original long url, and row id by unique_code"
       consumes:
       - "application/json"
       produces:
       - "application/json"
       parameters:
-      - name: "code"
+      - name: "unique_code"
         in: "path"  
         description: "Code of the short url"
         required: true
@@ -89,7 +89,7 @@ paths:
               original_url:
                 type: "string"
         400: 
-          description: "Invalid code for shortened url"
+          description: "Invalid unique_code for shortened url"
         405:
           description: "Invalid method"
 definitions:
@@ -101,7 +101,7 @@ definitions:
         format: "int64"
       original_url:
         type: "string"
-      code:
+      unique_code:
         type: "string"
 
 

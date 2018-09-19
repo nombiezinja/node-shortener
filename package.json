@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha tests/**/**.spec.js",
+    "start-dev": "nodemon app.js",
     "start": "node app.js",
     "setup": "chmod +x setup.sh && ./setup.sh"
   },

@@ -21,12 +21,7 @@ const Url_items = require('./models/Url_items')(knex);
 const api_routes = require('./routes/api');
 // const params_middleware = require('./middlewares/params');
 
-
-const fs = require('fs');
-const path = require('path');
-
 app.use(morgan('dev'));
-
 app.use(knexLogger(knex));
 
 app.get('/', (req, res) => {
