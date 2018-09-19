@@ -9,9 +9,9 @@ module.exports = (Url_items) => {
     // generate code 
     // create db row 
     // return json object
-    console.log(req.body)
-    const valid_url = (shorten.validate_url(req.body.url_to_shorten)) 
-    res.send(valid_url)
+    const valid_url = (shorten.validate_url(req.body.url_to_shorten));
+    const no_duplicate = Url_items.check_duplicate(req.body.url_to_shorten);
+    res.send(valid_url && no_duplicate);
   });
 
   router.get('/:unique_code', (req, res) => {
