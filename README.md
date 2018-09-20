@@ -17,11 +17,12 @@ Very basic deployment due to time constraint
     * Using VARCHAR(251) to store `original_url` and `int64` for id - scalebility purposes: need to be able to handle long website addresses, also anticipating a lot of entries
 * url formatting: all incoming url_to_shorten is put through a regex; if protocol is not present, `http` will be attached (http instead of https to reduce likelihood of getting a 404 for websites that do not have SSL certificate)
     * note: some characters such as `_` are not allowed in submitted urls and will result in an error return. 
+* Frontend
+    * EJS templates can be divvied up further into partials and reduce redundant code 
+    * A React Frontend has been scaffolded but left as is due to time 
 
-
-# Technical debt 
+# Technical debts  
 * Tests - due to time constraint no tests have been written; unit tests and integration tests are very important, at least some unit tests should be in place to speed up refactoring before moving down list of reducing technical debt
 * Better error handling 
 * Should switch to package Joi for validation; current package used (express-validator) cumbersome to customize
-* Front end fixes
-* Modularize `api.js`  
+* Modularize `api.js` and move `POST /ui/shorten` out of `app.js` to `/routes/ui.js`
