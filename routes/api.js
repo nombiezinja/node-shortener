@@ -4,8 +4,8 @@ const util = require('../lib/util');
 const Url_items = require('../models/Url_items')
 const {  sanitizeBody} = require('express-validator/filter');
 const {  check, validationResult } = require('express-validator/check');
-var expand_controller = require('../controllers/expand');
 
+// This file is too long, can break into 3 controller files and use this to route only
 module.exports = (Url_items) => {
 
   router.post('/shorten', [
@@ -68,10 +68,31 @@ module.exports = (Url_items) => {
     }
   });
 
-  router.get('/urls/:unique_code', (req, res) => {
-    res.send("it a full unique_code")
+  router.get('/urls/:unique_code', [check('unique_code')
+    .isString()
+    .isAlphanumeric()
+    .isLength(5)
+  ], async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        errors: errors.array()
+      });
+    };
+   
+    const item = await Url_items.find_by_code(req.params.unique_code)
+    if (item[0]) {
+      res.status(200).send(item[0])
+    } else {
+      res.status(422).json({
+        // errors in array format to have consistent returns 
+        // with express-validator-package generated output
+        errors: ['Invalid unique code, item not found']
+      });
+    };
+
   });
   
-
   return router;
 };
