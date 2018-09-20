@@ -56,7 +56,7 @@ module.exports = (Url_items) => {
     //Fetching row from db here instead of in validator to avoid two calls for valid unique_codes
     const item = await Url_items.find_by_code(req.params.unique_code)
     if (item[0]) {
-      res.status(301).redirect("www.google.com")
+      res.status(301).redirect("http://"+ item[0].original_url)
     } else {
       res.status(422).json({
         // errors in array format to have consistent returns 
