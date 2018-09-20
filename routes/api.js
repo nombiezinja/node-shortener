@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const util = require('../lib/util');
-const Url_items = require('../models/Url_items')
 const {  check, validationResult } = require('express-validator/check');
 
 // This file is too long, can break into 3 controller files and use this to route only
@@ -12,6 +11,8 @@ module.exports = (Url_items) => {
     .not().isEmpty()
     .isURL()
   ], async (req, res) => {
+
+    console.log(req.body)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({

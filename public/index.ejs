@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link href="/style.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -17,13 +18,16 @@
       <div class="col-lg-4">
       </div>
       <div class="col-lg-4">
-        <form name="form" method="POST" action="/api/shorten">
-            <div class="form-group">
-              <label for="url_to_shorten">What is the url you would like to shorten?</label>
-              <input type="url_to_shorten" class="form-control" placeholder="www.example.com">
+      
+        <form method="POST" action="/api/shorten" class="form-group">
+          <p>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-link fa" aria-hidden="true"></i></span>
+              <input class="form-control" type="text" name="url_to_shorten" placeholder="www.example.com">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+          </p>
+          <button type="submit" class="btn btn-lg btn-primary btn-block">Shorten</button>
+        </form>
       </div>
       <div class="col-lg-4">
       </div>
