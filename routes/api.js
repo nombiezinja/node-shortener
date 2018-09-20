@@ -68,10 +68,10 @@ module.exports = (Url_items) => {
     }
   });
 
-  // router.get('/urls/:unique_code', (req, res) => {
-  //   res.send("it a full unique_code")
-  // });
-  router.route('/urls/:unique_code').get(expand_controller.get);
+  router.get('/urls/:unique_code', (req, res) => {
+    res.send("it a full unique_code")
+  });
+  
 
   return router;
 };
