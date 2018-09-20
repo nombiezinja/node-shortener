@@ -3,6 +3,7 @@ const router = express.Router();
 const util = require('../lib/util');
 const {  check, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
+
 // This file is too long, can break into 3 controller files and use this to route only
 module.exports = (Url_items) => {
 
@@ -14,14 +15,13 @@ module.exports = (Url_items) => {
     sanitizeBody('url_to_shorten')
     .customSanitizer((value) => {
      //normalize format of url before saving to db
-      const regex = /^(ftp|http|https):\/\//
+    const regex = /^(ftp|http|https):\/\//
      if (regex.test(value) !== true) {
        value = 'http://' + value;
      }
      return value
     })
   ], async (req, res) => {
-    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
