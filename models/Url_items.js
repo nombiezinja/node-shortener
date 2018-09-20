@@ -17,10 +17,10 @@ module.exports = (knex) => {
     }, 
 
 
-    delete: (original_url) => {
+    delete: (unique_code) => {
       return knex('url_items')
         .where({
-          original_url: original_url
+          unique_code: unique_code
         })
         .del();
     },

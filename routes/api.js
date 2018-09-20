@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const util = require('../lib/util');
 const {  check, validationResult } = require('express-validator/check');
-
+const { sanitizeBody } = require('express-validator/filter');
 // This file is too long, can break into 3 controller files and use this to route only
 module.exports = (Url_items) => {
 
@@ -10,8 +10,18 @@ module.exports = (Url_items) => {
     check('url_to_shorten')
     .not().isEmpty()
     .isURL()
+    // , 
+    // sanitizeBody('url_to_shorten')
+    // .customSanitizer((value) => {
+    //  //norma
+    //   const regex = /^(ftp|http|https):\/\//
+    //  if (regex.test(value) !== true) {
+    //    value = 'http://' + value;
+    //  }
+    //  return value
+    // })
   ], async (req, res) => {
-
+    
     console.log(req.body)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -56,7 +66,7 @@ module.exports = (Url_items) => {
     //Fetching row from db here instead of in validator to avoid two calls for valid unique_codes
     const item = await Url_items.find_by_code(req.params.unique_code)
     if (item[0]) {
-      res.status(301).redirect("http://"+ item[0].original_url)
+      res.status(301).redirect("//"+ item[0].original_url)
     } else {
       res.status(422).json({
         // errors in array format to have consistent returns 
