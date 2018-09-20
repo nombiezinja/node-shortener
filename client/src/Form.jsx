@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import Input from './Input.jsx';
+import Button from './Button.jsx';
 
 class Form extends Component {
   
@@ -8,10 +10,17 @@ class Form extends Component {
       }
   }
 
+  handleClick = () => {
+    this.setState({counter: this.state.counter+ 1});
+    this.render()
+  }
+  
   render(){
     return (
       <div>
-          
+        <form className="form-group" onSubmit={this.handleSubmit} />
+          <Input/>
+          <Button/>
       </div>
     );
   }

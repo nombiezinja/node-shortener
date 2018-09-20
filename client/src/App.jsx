@@ -7,6 +7,21 @@ class App extends Component {
   componentWillMount() {
   }
 
+
+  shorten = () => {
+
+    axios.post('/api/shorten', {
+      url_to_shorten: this.state.url_to_shorten
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  }
+
   constructor(props){
     super(props);
     this.state = {
@@ -14,16 +29,11 @@ class App extends Component {
     }
   }
 
-  handleClick = () => {
-    this.setState({counter: this.state.counter+ 1});
-    this.render()
-  }
-
 
   render() {
     return (
       <div>
-        <h1>HELLO</h1>
+        <Form />
       </div>
     ); 
   }
