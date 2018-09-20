@@ -11,7 +11,7 @@ class Form extends Component {
   }
 
   handleClick = () => {
-    this.setState({counter: this.state.counter+ 1});
+    this.setState({});
     this.render()
   }
   
