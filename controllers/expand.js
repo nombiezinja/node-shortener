@@ -1,5 +1,5 @@
 module.exports = {
-  post_shorten : (req, res) => {
+  get : (req, res) => {
     res.send("it a full unique_code")
   }
 }

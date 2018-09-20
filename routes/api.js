@@ -4,6 +4,7 @@ const util = require('../lib/util');
 const Url_items = require('../models/Url_items')
 const {  sanitizeBody} = require('express-validator/filter');
 const {  check, validationResult } = require('express-validator/check');
+var expand_controller = require('../controllers/expand');
 
 module.exports = (Url_items) => {
 
@@ -67,9 +68,10 @@ module.exports = (Url_items) => {
     }
   });
 
-  router.get('/urls/:unique_code', (req, res) => {
-    res.send("it a full unique_code")
-  });
+  // router.get('/urls/:unique_code', (req, res) => {
+  //   res.send("it a full unique_code")
+  // });
+  router.route('/urls/:unique_code').get(expand_controller.get);
 
   return router;
 };
