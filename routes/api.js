@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const util = require('../lib/util');
 const Url_items = require('../models/Url_items')
-const {  sanitizeBody} = require('express-validator/filter');
 const {  check, validationResult } = require('express-validator/check');
 
 // This file is too long, can break into 3 controller files and use this to route only

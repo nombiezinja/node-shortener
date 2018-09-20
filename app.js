@@ -20,16 +20,23 @@ const morgan = require('morgan');
 
 const Url_items = require('./models/Url_items')(knex);
 const api_routes = require('./routes/api');
-// const params_middleware = require('./middlewares/params');
+
+const path = require('path');
 
 app.use(morgan('dev'));
 app.use(knexLogger(knex));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
+app.set('view engine', 'ejs');
+app.use('/static', express.static(path.join(__dirname, 'public')));
+app.set('views','./public');
 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.render('index');
+});
 
 app.use('/api', api_routes(Url_items));
 
