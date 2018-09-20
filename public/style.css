@@ -1,0 +1,14 @@
+body {
+  background-color: #fcfcfc;
+  margin: 10%;
+}
+
+form {
+  text-align: center;
+}
+
+.content {
+  margin: 0 auto;
+  background-color: #ccc;
+  padding: 5%;
+}
