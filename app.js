@@ -12,11 +12,9 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const server = http.createServer(app);
 
-
 const knexConfig = require('./knexfile');
 const knex = require('knex')(knexConfig[ENV]);
 const knexLogger = require('knex-logger');
-
 
 const morgan = require('morgan');
 

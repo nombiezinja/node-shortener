@@ -60,8 +60,6 @@ paths:
           description: "Successful redirect"
         400: 
           description: "Invalid unique_code for shortened url"
-        405:
-          description: "Invalid method"
   /urls/{unique_code}:
     get: 
       summary: "End point for retrieving shortened url, original long url, and row id by unique_code"

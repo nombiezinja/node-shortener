@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const shorten = require('../lib/shorten');
+const util = require('../lib/util');
 const Url_items = require('../models/Url_items')
 const {  sanitizeBody} = require('express-validator/filter');
 const {  check, validationResult } = require('express-validator/check');
@@ -15,7 +15,7 @@ module.exports = (Url_items) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(422).json({
+      return res.status(422).json({
         errors: errors.array()
       });
     };
@@ -23,7 +23,7 @@ module.exports = (Url_items) => {
     const duplicate = await Url_items.check_duplicate(req.body.url_to_shorten);
 
     if (!duplicate[0]) {
-      const unique_code = shorten.random_string()
+      const unique_code = util.random_string()
       const saved = await Url_items.save(unique_code, req.body.url_to_shorten)
 
       res.json({
@@ -42,26 +42,34 @@ module.exports = (Url_items) => {
 
   router.get('/:unique_code', [
     check('unique_code')
-    .not().isEmpty()
     .isString()
-    .escape()
+    .isAlphanumeric()
+    .isLength(5)
   ], async(req, res) => {
+    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(422).json({
+      return res.status(422).json({
         errors: errors.array()
       });
     };
-
-    console.log(req.params.unique_code)
-
-    res.send("it a unique_code")
+   
+    //Fetching row from db here instead of in validator to avoid two calls for valid unique_codes
+    const item = await Url_items.find_by_code(req.params.unique_code)
+    if (item[0]) {
+      res.redirect(item[0].original_url)
+    } else {
+      res.status(422).json({
+        // errors in array format to have consistent returns 
+        // with express-validator-package generated output
+        errors: ['Invalid unique code, item not found']
+      })
+    }
   });
 
   router.get('/urls/:unique_code', (req, res) => {
     res.send("it a full unique_code")
   });
-
 
   return router;
 };
