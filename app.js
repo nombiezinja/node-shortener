@@ -39,7 +39,9 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-// should be dried up 
+app.use('/api', api_routes(Url_items))
+
+// should be dried up and moved out of app.js to /routes/ui.js
 app.post('/ui/shorten', async(req, res) => {
   
   try {
@@ -76,8 +78,6 @@ app.post('/ui/shorten', async(req, res) => {
   }
 
 })
-
-app.use('/api', api_routes(Url_items))
 
 app.use((req, res, next) => {
   return res.status(404).send({ error: 'Route' + req.url + ' Not found.' })
