@@ -1,6 +1,6 @@
 require('dotenv').config({
   silent: true
-});
+})
 
 module.exports = {
 
@@ -11,7 +11,7 @@ module.exports = {
       port: process.env.DB_PORT,
       password: process.env.DB_PASSWORD,
       user: process.env.DB_USER,
-      host: process.env.DB_HOST || 'localhost',
+      host: process.env.DB_HOST || 'localhost'
     },
     migrations: {
       directory: './db/migrations',
@@ -26,7 +26,7 @@ module.exports = {
       port: process.env.DB_PORT,
       password: process.env.DB_PASSWORD,
       user: process.env.DB_USER,
-      host: process.env.DB_HOST || 'localhost',
+      host: process.env.DB_HOST || 'localhost'
     },
     migrations: {
       directory: './db/migrations',
@@ -37,7 +37,7 @@ module.exports = {
     }
   },
 
-  production: { 
+  production: {
     client: 'postgresql',
     connection: process.env.DATABASE_URL + '?ssl=true',
     pool: {
@@ -47,7 +47,7 @@ module.exports = {
     migrations: {
       directory: './db/migrations',
       tableName: 'migrations'
-    },
+    }
   }
 
-};
+}

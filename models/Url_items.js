@@ -16,15 +16,6 @@ module.exports = (knex) => {
         });
     }, 
 
-
-    delete: (unique_code) => {
-      return knex('url_items')
-        .where({
-          unique_code: unique_code
-        })
-        .del();
-    },
-
     find_by_code: (unique_code) => {
       return knex.select()
         .from('url_items')

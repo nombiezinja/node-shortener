@@ -7,6 +7,7 @@ const { sanitizeBody } = require('express-validator/filter');
 module.exports = (Url_items) => {
 
   router.post('/shorten', [
+    // syntax of express-validator
     check('url_to_shorten')
     .not().isEmpty()
     .isURL(), 
@@ -21,7 +22,6 @@ module.exports = (Url_items) => {
     })
   ], async (req, res) => {
     
-    console.log(req.body)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
@@ -31,10 +31,10 @@ module.exports = (Url_items) => {
   
     const duplicate = await Url_items.check_duplicate(req.body.url_to_shorten);
 
+    // If duplicate entry already exists, send that entry instead of creating new entry
     if (!duplicate[0]) {
       const unique_code = util.random_string()
       const saved = await Url_items.save(unique_code, req.body.url_to_shorten)
-
       res.json({
         id: saved[0],
         shortened_url: process.env.BASE_URL + "/api/" + unique_code,
