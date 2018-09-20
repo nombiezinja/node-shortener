@@ -8,7 +8,7 @@ class App extends Component {
   }
 
 
-  shorten = () => {
+  handleSubmit = () => {
 
     axios.post('/api/shorten', {
       url_to_shorten: this.state.url_to_shorten
@@ -19,7 +19,6 @@ class App extends Component {
     .catch((error) => {
       console.log(error);
     });
-
   }
 
   constructor(props){
