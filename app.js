@@ -23,21 +23,33 @@ const api_routes = require('./routes/api');
 
 const path = require('path');
 
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(knexLogger(knex));
+const fs = require('fs');
+
+//writing log to file for now, awaiting further instructions on how logging best handled in aws ecosystem
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {
+  flags: 'a'
+});
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
+
 app.set('view engine', 'ejs');
-app.use(express.static("public"));
-// app.use('/static', express.static(path.join(__dirname, 'public')));
 app.set('views','./public');
+app.use(express.static("public"));
 
 app.use(express.json());
 
 app.get('/', (req, res) => {
   res.render('index');
 });
+
+app.get('/delete/:unique_code', async(req, res) => {
+  const deleted = await Url_items.delete(req.params.unique_code)
+  res.send("ok")
+})
 
 app.use('/api', api_routes(Url_items));
 
