@@ -9,17 +9,16 @@ module.exports = (Url_items) => {
   router.post('/shorten', [
     check('url_to_shorten')
     .not().isEmpty()
-    .isURL()
-    // , 
-    // sanitizeBody('url_to_shorten')
-    // .customSanitizer((value) => {
-    //  //norma
-    //   const regex = /^(ftp|http|https):\/\//
-    //  if (regex.test(value) !== true) {
-    //    value = 'http://' + value;
-    //  }
-    //  return value
-    // })
+    .isURL(), 
+    sanitizeBody('url_to_shorten')
+    .customSanitizer((value) => {
+     //normalize format of url before saving to db
+      const regex = /^(ftp|http|https):\/\//
+     if (regex.test(value) !== true) {
+       value = 'http://' + value;
+     }
+     return value
+    })
   ], async (req, res) => {
     
     console.log(req.body)

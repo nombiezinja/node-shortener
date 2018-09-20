@@ -23,15 +23,8 @@ const api_routes = require('./routes/api');
 
 const path = require('path');
 
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(knexLogger(knex));
-const fs = require('fs');
-
-//writing log to file for now, awaiting further instructions on how logging best handled in aws ecosystem
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {
-  flags: 'a'
-});
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
