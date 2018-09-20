@@ -13,7 +13,6 @@ module.exports = (Url_items) => {
     .not().isEmpty()
     .isURL()
   ], async (req, res) => {
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
@@ -29,13 +28,13 @@ module.exports = (Url_items) => {
 
       res.json({
         id: saved[0],
-        shortened_url: unique_code,
+        shortened_url: process.env.BASE_URL + "/api/" + unique_code,
         original_url: req.body.url_to_shorten
       })
     } else {
       res.json({
         id: duplicate[0].id, 
-        shortened_url: duplicate[0].unique_code, 
+        shortened_url:process.env.BASE_URL + "/api/" + duplicate[0].unique_code, 
         original_url: req.body.url_to_shorten
       })
     }
@@ -47,7 +46,6 @@ module.exports = (Url_items) => {
     .isAlphanumeric()
     .isLength(5)
   ], async(req, res) => {
-    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
@@ -73,7 +71,6 @@ module.exports = (Url_items) => {
     .isAlphanumeric()
     .isLength(5)
   ], async (req, res) => {
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
@@ -83,7 +80,11 @@ module.exports = (Url_items) => {
    
     const item = await Url_items.find_by_code(req.params.unique_code)
     if (item[0]) {
-      res.status(200).send(item[0])
+      res.status(200).send({
+        id: item[0].id, 
+        shortened_url: process.env.BASE_URL + "/api/" + item[0].unique_code, 
+        original_url: item[0].original_url
+      })
     } else {
       res.status(422).json({
         // errors in array format to have consistent returns 
@@ -91,7 +92,6 @@ module.exports = (Url_items) => {
         errors: ['Invalid unique code, item not found']
       });
     };
-
   });
   
   return router;
