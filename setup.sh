@@ -9,7 +9,8 @@ echo "You have entered the following values:
  port for db: $3
  port for app: $4
  name for db: $5
- name for test db: $6"
+ name for test db: $6
+ base url for app: $7"
 
 if [ -f .env ]; then
   echo -n "Env file already exists, do you wish to overwrite?"
@@ -28,6 +29,7 @@ DB_PORT=${3:-5432}
 APP_PORT=${4:-8080} 
 DB_NAME=${5:-"shortener"}
 TEST_DB_NAME=${6:-"test_shortener"}
+BASE_URL=${7:-"localhost:8080"}
 
 if test "$#" -ne 4; then
     echo "Using default values for arguments not supplied, please manually adjust in generated .env file later"
@@ -39,7 +41,8 @@ TEST_DB_NAME=${TEST_DB_NAME}
 DB_USER=${USERNAME}
 DB_PASSWORD=${PASSWORD}
 DB_PORT=${DB_PORT}
-PORT=${APP_PORT}" >>.env
+PORT=${APP_PORT}
+BASE_URL=${BASE_URL}">>.env
 
 echo "Printing content of generated env file"
 cat .env

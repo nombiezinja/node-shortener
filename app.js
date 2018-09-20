@@ -30,11 +30,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send("its alive")
-});
 
 app.use('/api', api_routes(Url_items));
+
+app.use((req, res, next) =>{
+  return res.status(404).send({ error: 'Route'+req.url+' Not found.' });
+});
 
 server.listen(port, function listening() {
   console.log('Listening on %d', server.address().port);
